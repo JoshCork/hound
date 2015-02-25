@@ -1,6 +1,29 @@
 # Intro to AJAX
 
 # Lesson 1
+
+## 2/24/2015
+
+#### Requests with Ajax
+*Instructor Notes*
+
+Learn how to collect <input> values with jQuery [here](http://api.jquery.com/val/).
+Interested in diving into the Google Street View API? Check out its [documentation](https://developers.google.com/maps/documentation/streetview/)
+
+*Instructor Notes*
+[jQuery's .ajax() method](http://api.jquery.com/jquery.ajax/)
+[jQuery's .getJSON() method](http://api.jquery.com/jquery.getjson/)
+
+#### Fun With APIs
+[Google's APIs](https://developers.google.com/apis-explorer/)
+All the Google services you can imagine.
+
+[Giant database of APIs](http://www.programmableweb.com/apis/directory)
+
+This is definitely worth skimming for some inspiration.
+
+Also, did you know that [Udacity](https://www.udacity.com/catalog-api) has an API? It's available for anyone to use. We want to make it easy for developers to access and share our catalog of courses.
+
 ## 2/14/2015
 
 #### AJAX Necessaties
