@@ -17,15 +17,17 @@ function loadData() {
     // The code commented out below will pull out the city and street 
     // text and create a url using my key.
 
-    // var myCityText
-    // var myStreetText
-    // var myUrl = "https://maps.googleapis.com/maps/api/streetview?size=400x400&location="
-    // var myKey = "AIzaSyCo7SZK2iqRwqZACNN9kP8ssQbpUhKQvXM"
+    var myCityText = NULL
+    var myStreetText = NULL
+    var myUrl = "https://maps.googleapis.com/maps/api/streetview?size=400x400&location="
+    var myKey = "AIzaSyCo7SZK2iqRwqZACNN9kP8ssQbpUhKQvXM"
 
-    // myStreetText = $("#street").val()
-    // myCityText = $("#city").val()
+    myStreetText = $("#street").val()
+    myCityText = $("#city").val()
 
-    // myUrl = myUrl + myStreetText + myCityText + "&key=" + myKey
+    myUrl = myUrl + myStreetText + myCityText + "&key=" + myKey
+
+    $body.append('<img class="bgimg" src="'+ myUrl + '">');
 
     return false;
 };
