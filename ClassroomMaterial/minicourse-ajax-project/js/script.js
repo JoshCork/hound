@@ -40,13 +40,14 @@ function loadData() {
         // });
 
         $.each(data.response.docs,function(key,val) {   
-                items.push("<li id='" + key + "'>" + this.headline.main + "</li>");                
+                items.push("<li id='" + key + "'><a href='" + this.web_url + "' target='_blank'>" + this.headline.main + "</a></li>");                
          });
 
         console.log(items);       
 
         $("<ul/>", {
-            "class" : "my-new-list",
+            "class" : "article-list",
+            "id" : "nyt-articles",
             html: items.join( "" )
         }).appendTo( "body" );
 
