@@ -2,12 +2,22 @@
 
 # Lesson 1
 
+## 3/21/2015
+#### Building the Move Planner App --> NYT Implementation
+Interesting approach by the instructor that differed from my own.  He created an articles variable and assigned the array from the NYT response to that array.  Something like: `var articles = data.response.docs`.  Instead I just iterated through the response and pushed the html (along with the key, url, and headline) into an items array:
+
+    $.each(data.response.docs,function(key,val) {   
+                items.push(
+                    "<li id='" + key + "'><a href='" + this.web_url + "' target='_blank'>" + this.headline.main + "</a>" + "<p>" + this.snippet + "</p>" + "</li>");                
+         });
+
+
 ## 2/24/2015
 
 #### Requests with Ajax
 *Instructor Notes*
 
-Learn how to collect <input> values with jQuery [here](http://api.jquery.com/val/).
+Learn how to collect `<input>` values with jQuery [here](http://api.jquery.com/val/).
 Interested in diving into the Google Street View API? Check out its [documentation](https://developers.google.com/maps/documentation/streetview/)
 
 *Instructor Notes*

@@ -1,10 +1,10 @@
 
 // myNYT key: 3cc303338d57062cab3b82000286ca48:2:71622028 - article search
 // myNYT geo Key: d9d00c130383e3546b7c1df6f3b715c1:11:71622028
- 
+
 
 function loadData() {
-
+    console.log("i'm here");
     var $body = $('body');
     var $wikiElem = $('#wikipedia-links');
     var $nytHeaderElem = $('#nytimes-header');
@@ -28,28 +28,28 @@ function loadData() {
 
 
     // load nytimes
-    
+
     //"http://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=3cc303338d57062cab3b82000286ca48:2:71622028&fq=glocation:('Arizona')
     ////http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=glocation%3A%28%27Arizona%27%29&api-key=3cc303338d57062cab3b82000286ca48%253A2%253A71622028
-    
-    $.getJSON("http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=glocations:(" + cityStr + ")&api-key=3cc303338d57062cab3b82000286ca48%3A2%3A71622028",function ( data ) {
+    $nytHeaderElem.text('New York Times Articles About ' + cityStr);
+
+    var myArticleApiKey = "3cc303338d57062cab3b82000286ca48:2:71622028";
+    var filterQuery = "-headline:('Paid Notice' 'obituary')";
+    var nytimesUrl= "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + cityStr + "&fq=" + filterQuery + "&sort=newest&api-key=" + myArticleApiKey;
+
+    $.getJSON(nytimesUrl,function ( data ) {
         var items = [];
-        //$.each( data.response.docs,function(key,val) { items.push("li id='" + key + "'>" + val + "</li>" );});
-        // $.each(data.response.docs, function(key,val) { 
-        //     items.push(key + val); 
-        // });
+        $.each(data.response.docs,function(key,val) {
+            items.push("<li class='article' id='" + key + "'><a href='" + this.web_url + "' target='_blank'>" + this.headline.main + "</a>" + "<p>" + this.snippet + "</p>" + "</li>");
+        });
 
-        $.each(data.response.docs,function(key,val) {   
-                items.push("<li id='" + key + "'><a href='" + this.web_url + "' target='_blank'>" + this.headline.main + "</a></li>");                
-         });
-
-        console.log(items);       
+        console.log(items);
 
         $("<ul/>", {
             "class" : "article-list",
             "id" : "nyt-articles",
             html: items.join( "" )
-        }).appendTo( "body" );
+        }).appendTo( ".nytimes-container" );
 
     });
 
