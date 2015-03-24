@@ -41,9 +41,7 @@ function loadData() {
         var items = [];
         $.each(data.response.docs,function(key,val) {
             items.push("<li class='article' id='" + key + "'><a href='" + this.web_url + "' target='_blank'>" + this.headline.main + "</a>" + "<p>" + this.snippet + "</p>" + "</li>");
-        });
-
-        console.log(items);
+        });        
 
         $("<ul/>", {
             "class" : "article-list",
@@ -51,6 +49,9 @@ function loadData() {
             html: items.join( "" )
         }).appendTo( ".nytimes-container" );
 
+    }).error(function(e){        
+        $nytHeaderElem.text('New York Times Articles: Booo. Could not retrieve articles.');
+        console.log("your error was: " + JSON.stringify(e));
     });
 
 
