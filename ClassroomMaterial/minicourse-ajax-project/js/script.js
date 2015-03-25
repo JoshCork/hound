@@ -54,6 +54,10 @@ function loadData() {
         console.log("your error was: " + JSON.stringify(e));
     });
 
+    var wpUrl = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=Main%20Page&prop=revisions&rvprop=content";
+    var callbackName = "myRadMethod";
+    wpUrl = wpUrl + "&callback=" + callbackName;
+    $.ajax()
 
 
     return false;
