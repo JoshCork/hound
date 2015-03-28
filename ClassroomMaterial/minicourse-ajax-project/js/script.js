@@ -1,6 +1,6 @@
-
 // myNYT key: 3cc303338d57062cab3b82000286ca48:2:71622028 - article search
 // myNYT geo Key: d9d00c130383e3546b7c1df6f3b715c1:11:71622028
+// my GoogleMaps API Key: AIzaSyCo7SZK2iqRwqZACNN9kP8ssQbpUhKQvXM
 
 
 function loadData() {
@@ -35,37 +35,50 @@ function loadData() {
 
     var myArticleApiKey = "3cc303338d57062cab3b82000286ca48:2:71622028";
     var filterQuery = "-headline:('Paid Notice' 'obituary')";
-    var nytimesUrl= "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + cityStr + "&fq=" + filterQuery + "&sort=newest&api-key=" + myArticleApiKey;
+    var nytimesUrl = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + cityStr + "&fq=" + filterQuery + "&sort=newest&api-key=" + myArticleApiKey;
 
-    $.getJSON(nytimesUrl,function ( data ) {
+    $.getJSON(nytimesUrl, function(data) {
         var items = [];
-        $.each(data.response.docs,function(key,val) {
+        $.each(data.response.docs, function(key, val) {
             items.push("<li class='article' id='" + key + "'><a href='" + this.web_url + "' target='_blank'>" + this.headline.main + "</a>" + "<p>" + this.snippet + "</p>" + "</li>");
         });
 
         $("<ul/>", {
-            "class" : "article-list",
-            "id" : "nyt-articles",
-            html: items.join( "" )
-        }).appendTo( ".nytimes-container" );
+            "class": "article-list",
+            "id": "nyt-articles",
+            html: items.join("")
+        }).appendTo(".nytimes-container");
 
-    }).error(function(e){
+    }).error(function(e) {
         $nytHeaderElem.text('New York Times Articles: Booo. Could not retrieve articles.');
         console.log("your error was: " + JSON.stringify(e));
     });
+
+
+    var geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+    var geocodeKey = "AIzaSyCo7SZK2iqRwqZACNN9kP8ssQbpUhKQvXM";
+    var myGeocodeUrl = geocodeUrl + cityStr + "&key=" + geocodeKey;
+    console.log("Geocode Url: " + myGeocodeUrl);
+    $.getJSON(myGeocodeUrl, function(data){
+        console.log(JSON.stringify(data));
+        var Longitude = data.results[0].geometry.location.lng;
+        var Latitude = data.results[0].geometry.location.lat;
+    });
+
+
 
     var wpUrl = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=Main%20Page&prop=revisions&rvprop=content";
     var callbackName = "myRadMethod";
     wpUrl = wpUrl + "&callback=" + callbackName;
     $.ajax({
-        url : wpUrl,
-        crossDomain : true,
-        dataType : "jsonp",
-        success : function(jsonpData){
-            console.log("Wikipedia Results: " + JSON.stringify(jsonpData));
+        url: wpUrl,
+        crossDomain: true,
+        dataType: "jsonp",
+        success: function(jsonpData) {
+            console.log("Wikipedia Results: " + jsonpData);
         },
-        error : function(e){
-            console.log("I am the error: " + e);
+        error: function(e) {
+            //console.log("I am the error: " + e);
         }
     });
 

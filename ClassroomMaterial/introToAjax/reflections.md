@@ -1,6 +1,10 @@
 # Intro to AJAX
 
 # Lesson 1
+
+## 3/28/2015
+I've made good progress today.  I've decided that the search results from just doing a regular query search of wikipedia provided terrible results.  A search for "Phoenix, AZ" returned reall obscure results.  I choose instead to use a geo search and provide the Wikipedia API a latitude / longitude for the city i was searching for.  To do this i had to use the Google GeoCode API and pass the city along and get back the lat/lon.  
+
 ## 3/24/2015
 
 #### CORS and JSON-P
