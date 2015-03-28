@@ -41,7 +41,7 @@ function loadData() {
         var items = [];
         $.each(data.response.docs,function(key,val) {
             items.push("<li class='article' id='" + key + "'><a href='" + this.web_url + "' target='_blank'>" + this.headline.main + "</a>" + "<p>" + this.snippet + "</p>" + "</li>");
-        });        
+        });
 
         $("<ul/>", {
             "class" : "article-list",
@@ -49,7 +49,7 @@ function loadData() {
             html: items.join( "" )
         }).appendTo( ".nytimes-container" );
 
-    }).error(function(e){        
+    }).error(function(e){
         $nytHeaderElem.text('New York Times Articles: Booo. Could not retrieve articles.');
         console.log("your error was: " + JSON.stringify(e));
     });
@@ -57,7 +57,17 @@ function loadData() {
     var wpUrl = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=Main%20Page&prop=revisions&rvprop=content";
     var callbackName = "myRadMethod";
     wpUrl = wpUrl + "&callback=" + callbackName;
-    $.ajax()
+    $.ajax({
+        url : wpUrl,
+        crossDomain : true,
+        dataType : "jsonp",
+        success : function(jsonpData){
+            console.log("Wikipedia Results: " + JSON.stringify(jsonpData));
+        },
+        error : function(e){
+            console.log("I am the error: " + e);
+        }
+    });
 
 
     return false;
