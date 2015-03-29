@@ -73,10 +73,17 @@ function loadData() {
                 var resultsBaseUrl = "http://en.wikipedia.org/wiki/";
                 console.log("Wikipedia Results: " + jsonpData);
                 console.log("title of first result: " + jsonpData.query.geosearch[0].title);
-                $.each(jsonpData.query.geosearch, function(key,val) {
-                    wikiItems.push(this.title);
+                $.each(jsonpData.query.geosearch, function(key, val) {
+                    // wikiItems.push(this.title);
+                    wikiItems.push("<li class='article' id='" + key + "'><a href='" + resultsBaseUrl + this.title + "' target='_blank'>" + this.title + "</a></li>");
+
                 });
                 console.log(wikiItems);
+                $("<ul/>", {
+                    "id": "wikipedia-links",
+                    html: wikiItems.join("")
+                }).appendTo(".wikipedia-container");
+
             },
             error: function(e) {
                 console.log("I am the error: " + e);
