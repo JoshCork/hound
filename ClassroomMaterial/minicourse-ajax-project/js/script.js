@@ -4,7 +4,7 @@
 
 
 function loadData() {
-    console.log("i'm here");
+
     var $body = $('body');
     var $wikiElem = $('#wikipedia-links');
     var $nytHeaderElem = $('#nytimes-header');
@@ -54,33 +54,42 @@ function loadData() {
         console.log("your error was: " + JSON.stringify(e));
     });
 
-
     var geocodeUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=";
     var geocodeKey = "AIzaSyCo7SZK2iqRwqZACNN9kP8ssQbpUhKQvXM";
     var myGeocodeUrl = geocodeUrl + cityStr + "&key=" + geocodeKey;
-    console.log("Geocode Url: " + myGeocodeUrl);
-    $.getJSON(myGeocodeUrl, function(data){
-        console.log(JSON.stringify(data));
+    // console.log("Geocode Url: " + myGeocodeUrl);
+    $.getJSON(myGeocodeUrl, function(data) {
         var Longitude = data.results[0].geometry.location.lng;
         var Latitude = data.results[0].geometry.location.lat;
+
+        var wpUrl = "http://en.wikipedia.org/w/api.php?action=query&list=geosearch&gsradius=10000&gscoord=" + Latitude + "%7C" + Longitude + "&format=json";
+
+        $.ajax({
+            url: wpUrl,
+            crossDomain: true,
+            dataType: "jsonp",
+            success: function(jsonpData) {
+                var wikiItems = [];
+                var resultsBaseUrl = "http://en.wikipedia.org/wiki/";
+                console.log("Wikipedia Results: " + jsonpData);
+                console.log("title of first result: " + jsonpData.query.geosearch[0].title);
+                $.each(jsonpData.query.geosearch, function(key,val) {
+                    wikiItems.push(this.title);
+                });
+                console.log(wikiItems);
+            },
+            error: function(e) {
+                console.log("I am the error: " + e);
+            }
+        });
+
     });
 
 
 
-    var wpUrl = "http://en.wikipedia.org/w/api.php?format=json&action=query&titles=Main%20Page&prop=revisions&rvprop=content";
-    var callbackName = "myRadMethod";
-    wpUrl = wpUrl + "&callback=" + callbackName;
-    $.ajax({
-        url: wpUrl,
-        crossDomain: true,
-        dataType: "jsonp",
-        success: function(jsonpData) {
-            console.log("Wikipedia Results: " + jsonpData);
-        },
-        error: function(e) {
-            //console.log("I am the error: " + e);
-        }
-    });
+
+
+
 
 
     return false;
