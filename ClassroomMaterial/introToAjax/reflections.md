@@ -2,6 +2,9 @@
 
 # Lesson 1
 
+## 3/29/2015
+I completed the coursework.  Somethign that needs more time invstedin it if i were to actually build the application would be the NYT Articles: Right now the content is kind of crap if you search for Phoenix, AZ for instance or just Phoenix.  
+
 ## 3/28/2015
 I've made good progress today.  I've decided that the search results from just doing a regular query search of wikipedia provided terrible results.  A search for "Phoenix, AZ" returned reall obscure results.  I choose instead to use a geo search and provide the Wikipedia API a latitude / longitude for the city i was searching for.  To do this i had to use the Google GeoCode API and pass the city along and get back the lat/lon.  
 
