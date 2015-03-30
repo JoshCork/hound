@@ -35,7 +35,7 @@ function loadData() {
 
     var myArticleApiKey = "3cc303338d57062cab3b82000286ca48:2:71622028";
     var filterQuery = "-headline:('Paid Notice' 'obituary')";
-    var nytimesUrl = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + cityStr + "&fq=" + filterQuery + "&sort=newest&api-key=" + myArticleApiKey;
+    var nytimesUrl = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + cityStr + "&begin_date=20150101" + "&fq=" + filterQuery + "&sort=newest&api-key=" + myArticleApiKey;
 
     $.getJSON(nytimesUrl, function(data) {
         var items = [];
@@ -63,6 +63,9 @@ function loadData() {
         var Latitude = data.results[0].geometry.location.lat;
 
         var wpUrl = "http://en.wikipedia.org/w/api.php?action=query&list=geosearch&gsradius=10000&gscoord=" + Latitude + "%7C" + Longitude + "&format=json";
+        var wikiRequestTimeout = setTimeout(function(){
+            $wikiElem.text("failed to get Wikipedia resources.");
+        },8000);
 
         $.ajax({
             url: wpUrl,
@@ -78,6 +81,8 @@ function loadData() {
                     wikiItems.push("<li class='article' id='" + key + "'><a href='" + resultsBaseUrl + this.title + "' target='_blank'>" + this.title + "</a></li>");
 
                 });
+                clearTimeout(wikiRequestTimeout);
+
                 console.log(wikiItems);
                 $("<ul/>", {
                     "id": "wikipedia-links",
