@@ -1,4 +1,4 @@
-$.getJSON('http://www.reddit.com/r/kittens/.json?jsonp=?&show=all&limit=300', function (data) {
+$.getJSON('http://www.reddit.com/r/catpictures/new/.json?jsonp=?&show=all&limit=300', function (data) {
     $.each(data.data.children, function (i, item) {
         IsValidImageUrl(item.data.url, function (url, isvalid) {
             if (isvalid) {
