@@ -1,9 +1,9 @@
-$.getJSON('http://www.reddit.com/r/progresspics/.json?jsonp=?&show=all&limit=300', function (data) {
+$.getJSON('https://www.reddit.com/r/teslamotors/.json?jsonp=?&show=all&limit=300', function (data) {
     $.each(data.data.children, function (i, item) {
         IsValidImageUrl(item.data.url, function (url, isvalid) {
             if (isvalid) {
                 $('<img/>').attr('src', item.data.url)
-                    .width(500)
+                    // .width(500)
                     .appendTo('#images');
             }
         });
