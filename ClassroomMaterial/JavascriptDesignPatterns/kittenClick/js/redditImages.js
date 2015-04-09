@@ -5,9 +5,9 @@ $.getJSON('http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=300'
         IsValidImageUrl(item.data.url, function(url, isvalid) {
             if (isvalid) {
                 imgArray.push(item.data.url);
-                // $('<img/>').attr('src', item.data.url)
-                //     .width(500)
-                //     .appendTo('#images');
+                $('<img/>').attr('src', item.data.url)
+                    .width(500)
+                    .appendTo('#images');
             }            
         });
     });
@@ -25,6 +25,6 @@ function IsValidImageUrl(url, callback) {
     img.onload = function() {
         callback(url, true);
     };
-    img.src = url;
-    console.log("I am img.src: " + img.src);
+    //img.src = url;
+    //console.log("I am img.src: " + img.src);
 }
