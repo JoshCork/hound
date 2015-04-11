@@ -41,7 +41,9 @@ function loadData() {
         var items = [];
         $.each(data.response.docs, function(key, val) {
             items.push("<li class='article' id='" + key + "'><a href='" + this.web_url + "' target='_blank'>" + this.headline.main + "</a>" + "<p>" + this.snippet + "</p>" + "</li>");
+
         });
+
 
         $("<ul/>", {
             "class": "article-list",
@@ -79,8 +81,9 @@ function loadData() {
                 $.each(jsonpData.query.geosearch, function(key, val) {
                     // wikiItems.push(this.title);
                     wikiItems.push("<li class='article' id='" + key + "'><a href='" + resultsBaseUrl + this.title + "' target='_blank'>" + this.title + "</a></li>");
-
+                    console.log("i have pushed to WikiArray");
                 });
+                console.log("Wiki each has completed");
                 clearTimeout(wikiRequestTimeout);
 
                 console.log(wikiItems);
