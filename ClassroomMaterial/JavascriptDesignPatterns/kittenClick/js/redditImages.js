@@ -2,9 +2,9 @@ var imgArray = [];
 var urlArray = [];
 
 
+// modified based on reading through this stackoverflow article: http://bit.ly/1PzGc0b
 function IsValidImageUrl(url) {
 
-    // modified based on reading through this stackoverflow article: http://bit.ly/1PzGc0b
     var arr = ["jpeg", "jpg", "gif", "png"];
     var ext = url.substring(url.lastIndexOf(".") + 1);
     var isValid;
@@ -40,14 +40,11 @@ function shuffle(array) {
 }
 
 
-
-
-
-function loadData() {
+function getRedditPictures() {
 
     $.ajax({
         // async: false,
-        url: "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=50",
+        url: "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=300",
         dataType: "json",
         success: function(jsonData) {
             redditData = jsonData;
@@ -58,8 +55,6 @@ function loadData() {
 
                 if (IsValidImageUrl(url)) {
                     imgArray.push(url);
-                    // only if you want to put all the images on the screen.
-                    // $('<img/>').attr('src', url).width(500).appendTo('#images');
                 } else {
                     // do nothing.
                 }
@@ -70,21 +65,14 @@ function loadData() {
             $('<img/>').attr('src', imgArray[0]).width(500).appendTo('#images');
             $('<img/>').attr('src', imgArray[1]).width(500).appendTo('#images');
 
-
-
         },
-        error: function() {
-            console.log("oh snap!");
+        error: function(e) {
+            console.log("oh snap! error: " + e);
         },
-        // complete: function() {
-        //     console.log("urlArray Length: " + urlArray.length);
-        //     console.log("urlData is: " + urlArray);
-        //     console.log("imgArray: " + imgArray);
 
-        // },
 
     });
 }
 
 
-loadData();
+getRedditPictures();
