@@ -6,7 +6,7 @@ function clickWatch() {
     $('#images').click(function(e) {
         clicks++;
         imageText = "I have been clicked " + clicks + " times!";
-        $('#imageText').text(imageText);
+        $(this).text(imageText);
         //the element has been clicked... do stuff here
     });
 }
@@ -84,10 +84,10 @@ function getRedditPictures() {
             // $('<img/>').attr('src', imgArray[0]).width(500).appendTo('#images');
             // $('<img/>').attr('src', imgArray[1]).width(500).appendTo('#images');
 
-            $("<div class='col-md-4'><h2>" + imgArray[0].title + "</h2><div id='images'><img class='kittenPic' width='300px' src=" + imgArray[0].url + "/><p id='imageText'></p></div></div>").appendTo('.kittenRow');
-            $("<div class='col-md-4'><h2>" + imgArray[1].title + "</h2><div id='images'><img class='kittenPic' width='300px' src=" + imgArray[1].url + "/><p id='imageText'></p></div></div>").appendTo('.kittenRow');
+            $("<div class='col-md-4'><h2>" + imgArray[0].title + "</h2><div id='images'><img class='kittenPic' width='300px' src=" + imgArray[0].url + "/><p id='imageText'></p></div></div>").appendTo('.kittenRow').on("click",clickWatch());
+            $("<div class='col-md-4'><h2>" + imgArray[1].title + "</h2><div id='images'><img class='kittenPic' width='300px' src=" + imgArray[1].url + "/><p id='imageText'></p></div></div>").appendTo('.kittenRow').on("click",clickWatch());
 
-            clickWatch();
+            // clickWatch();
 
         },
         error: function(e) {
