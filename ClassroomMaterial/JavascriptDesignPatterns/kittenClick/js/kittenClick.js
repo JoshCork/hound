@@ -65,6 +65,8 @@ function getRedditPictures() {
 
             $.each(jsonData.data.children, function(i, item) {
                 var url = item.data.url;
+                var title = item.data.url;
+                var permalink = "http://reddit.com/" + item.data.permalink;
 
                 if (IsValidImageUrl(url)) {
                     imgArray.push(url);
