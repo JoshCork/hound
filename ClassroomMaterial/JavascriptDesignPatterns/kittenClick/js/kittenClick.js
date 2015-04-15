@@ -1,12 +1,13 @@
 var clicks = 0;
 var imageText;
 var imgArray = [];
+var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=20";
 
-function clickWatch() {
-    $('#images').click(function(e) {
+function clickWatch(id) {
+    $("#" + id).click(function(e) {
         clicks++;
         imageText = "I have been clicked " + clicks + " times!";
-        $(this).text(imageText);
+        $('#imageText').text(imageText);
         //the element has been clicked... do stuff here
     });
 }
@@ -57,7 +58,7 @@ function getRedditPictures() {
 
     $.ajax({
         // async: false,
-        url: "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=300",
+        url: redditURL,
         dataType: "json",
         success: function(jsonData) {
             redditData = jsonData;
@@ -72,7 +73,8 @@ function getRedditPictures() {
                     imgArray.push({
                         "url" : url,
                         "title" : title,
-                        "permalink" : permalink
+                        "permalink" : permalink,
+                        "id" : id
                     });
                 } else {
                     // do nothing.
@@ -84,8 +86,8 @@ function getRedditPictures() {
             // $('<img/>').attr('src', imgArray[0]).width(500).appendTo('#images');
             // $('<img/>').attr('src', imgArray[1]).width(500).appendTo('#images');
 
-            $("<div class='col-md-4'><h2>" + imgArray[0].title + "</h2><div id='images'><img class='kittenPic' width='300px' src=" + imgArray[0].url + "/><p id='imageText'></p></div></div>").appendTo('.kittenRow').on("click",clickWatch());
-            $("<div class='col-md-4'><h2>" + imgArray[1].title + "</h2><div id='images'><img class='kittenPic' width='300px' src=" + imgArray[1].url + "/><p id='imageText'></p></div></div>").appendTo('.kittenRow').on("click",clickWatch());
+            $("<div class='col-md-4'><h2>" + imgArray[0].title + "</h2><div id=" + imgArray[0].id + "><img class='kittenPic' width='300px' src=" + imgArray[0].url + "/><p id='imageText'></p></div></div>").appendTo('.kittenRow').on("click",clickWatch(imgArray[0].id));
+            $("<div class='col-md-4'><h2>" + imgArray[1].title + "</h2><div id=" + imgArray[0].id + "><img class='kittenPic' width='300px' src=" + imgArray[1].url + "/><p id='imageText'></p></div></div>").appendTo('.kittenRow').on("click",clickWatch(imgArray[0].id));
 
             // clickWatch();
 
