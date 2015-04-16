@@ -1,15 +1,14 @@
-
 var imgArray = [];
-var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=20";
+var redditURL = "http://www.reddit.com/r/charts/.json?jsonp=?&show=all&limit=300";
 
-function clickWatch(id) {
-    $("#" + id).click(function(e) {
+function clickWatch(myDiv) {
+    $(myDiv).click(function(e) {
         var clicks = 0;
         var imageText;
 
         clicks++;
         imageText = "I have been clicked " + clicks + " times!";
-        $('#imageText-' + id).text(imageText);
+        $(myDiv).find("#imageText").text(imageText);
         //the element has been clicked... do stuff here
     });
 }
@@ -59,38 +58,50 @@ function shuffle(array) {
 function getRedditPictures() {
 
     $.ajax({
-        // async: false,
-        url: redditURL,
-        dataType: "json",
-        success: function(jsonData) {
-            redditData = jsonData;
-            var arr = ["jpeg", "jpg", "gif", "png"];
+            // async: false,
+            url: redditURL,
+            dataType: "json",
+            success: function(jsonData) {
+                redditData = jsonData;
+                var arr = ["jpeg", "jpg", "gif", "png"];
 
-            $.each(jsonData.data.children, function(i, item) {
-                var url = item.data.url;
-                var title = item.data.title;
-                var id = item.data.id;
-                var permalink = "http://reddit.com/" + item.data.permalink;
+                $.each(jsonData.data.children, function(i, item) {
+                    var url = item.data.url;
+                    var title = item.data.title;
+                    var id = item.data.id;
+                    var permalink = "http://reddit.com/" + item.data.permalink;
 
-                if (IsValidImageUrl(url)) {
-                    imgArray.push({
-                        "url" : url,
-                        "title" : title,
-                        "permalink" : permalink,
-                        "id" : id,
-                    });
-                } else {
-                    // do nothing.
-                }
+                    if (IsValidImageUrl(url)) {
+                        imgArray.push({
+                            "url": url,
+                            "title": title,
+                            "permalink": permalink,
+                            "id": id,
+                        });
+                    } else {
+                        // do nothing.
+                    }
 
-            });
+                });
 
-            imgArray = shuffle(imgArray);
-            // $('<img/>').attr('src', imgArray[0]).width(500).appendTo('#images');
-            // $('<img/>').attr('src', imgArray[1]).width(500).appendTo('#images');
+                imgArray = shuffle(imgArray);
+                // $('<img/>').attr('src', imgArray[0]).width(500).appendTo('#images');
+                // $('<img/>').attr('src', imgArray[1]).width(500).appendTo('#images');
 
-            $("<div class='col-md-4'><h2>" + imgArray[0].title + "</h2><div id=" + imgArray[0].id + "><img class='kittenPic' width='300px' src=" + imgArray[0].url + "/><p id='imageText-" + imgArray[0].id + "'></p></div></div>").appendTo('.kittenRow').on("click",clickWatch(imgArray[0].id));
-            $("<div class='col-md-4'><h2>" + imgArray[1].title + "</h2><div id=" + imgArray[1].id + "><img class='kittenPic' width='300px' src=" + imgArray[1].url + "/><p id='imageText-" + imgArray[1].id +"'></p></div></div>").appendTo('.kittenRow').on("click",clickWatch(imgArray[1].id));
+                var insertHTML
+                var nbrImages = 2
+
+                for (var i = 0; i < 2; i++) {
+                    var obj = imgArray[i];
+                    insertHTML = "<div class='col-md-4'><h2>" + obj.title + "</h2><div id=" + obj.id + "><img class='kittenPic' width='300px' src=" + obj.url + "/><p id='imageText-" + obj.id + "'></p></div></div>";
+                    $(insertHTML).apendTo("#kittenRow");
+
+                } 
+                    //).appendTo('.kittenRow').on("click",clickWatch(this));
+
+                //$("#kittenRow").apendTo();
+
+                //$("<div class='col-md-4'><h2>" + imgArray[1].title + "</h2><div id=" + imgArray[1].id + "><img class='kittenPic' width='300px' src=" + imgArray[1].url + "/><p id='imageText'></p></div></div>").appendTo('.kittenRow'));
 
             // clickWatch();
 
@@ -105,4 +116,3 @@ function getRedditPictures() {
 
 
 getRedditPictures();
-
