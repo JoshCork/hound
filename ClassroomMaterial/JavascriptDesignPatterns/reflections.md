@@ -1,5 +1,12 @@
 # JavaScript Design Patterns
 
+## 4/16/2015
+OMG!  Finally got it working.  After some sleep last night and noodling on this a bit I figured it out.
+I can now send any number of images to the UI (well... i'll need to start wrapping the rows after three) and I can now keep track of the number of clicks independently of each image. 
+
+I've been working on this since I left for Oregon on Tuesday afternoon.  Frustrating with terrible connectivity on the plan and in the hotel room.  I kept trying to pull this up as I was in the keynote sessions and they were getting boring... had to force myself back into listening to sessions themselves.  
+
+I was having a few problems and I was actually very close a couple of times... lack of sleep and time to work / think through what was happening was tripping me up.  I was calling the function for each line of HTML that I inserted and trying to watch that specific image but it didn't seem to be working. Turns out it was but it was also just declaring the variable and resetting it each time.  After thinking through it a bit this morning I realized what I was doing and started storing my counter in the same array where I was storing my image URLs and ids.  I gave each div that contained the image it's own unique id from reddit and then called back the click count from that array of JSON objects that stored the URL,ID, permalink, etc...  When a user clicks on an image i write back to that same array with the click count to track it there.  
 ## 4/12/2015
 ### KittenClicker Rev 2
 Okay, so I spent the last several days while working on this app figuring out how to pull images from Reddit's JSON API into my web application and then display them side by side on the page.  I had a few things that I wanted to be able to accomplish:

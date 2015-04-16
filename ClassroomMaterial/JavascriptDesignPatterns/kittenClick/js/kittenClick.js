@@ -1,5 +1,5 @@
 var imgArray = [];
-var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=30";
+var redditURL = "http://www.reddit.com/r/dogpictures/.json?jsonp=?&show=all&limit=300";
 
 function clickWatch(id,index) {
     $("#"+id).click(function(e) {
@@ -92,8 +92,8 @@ function getRedditPictures() {
                 // $('<img/>').attr('src', imgArray[0]).width(500).appendTo('#images');
                 // $('<img/>').attr('src', imgArray[1]).width(500).appendTo('#images');
 
-                var insertHTML
-                var nbrImages = 2
+                var insertHTML;
+                var nbrImages = 3;
 
                 for (var i = 0; i < 2; i++) {
                     var obj = imgArray[i];
