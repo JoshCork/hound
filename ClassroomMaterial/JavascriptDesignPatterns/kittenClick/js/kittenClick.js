@@ -1,8 +1,9 @@
 var imgArray = [];
-var redditURL = "http://www.reddit.com/r/charts/.json?jsonp=?&show=all&limit=300";
+var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=30";
 
 function clickWatch(myDiv) {
-    $(myDiv).click(function(e) {
+    //$(myDiv).click(function(e) {
+        console.log(myDiv);
         var clicks = 0;
         var imageText;
 
@@ -10,7 +11,8 @@ function clickWatch(myDiv) {
         imageText = "I have been clicked " + clicks + " times!";
         $(myDiv).find("#imageText").text(imageText);
         //the element has been clicked... do stuff here
-    });
+    //}
+    //);
 }
 
 
@@ -93,8 +95,10 @@ function getRedditPictures() {
 
                 for (var i = 0; i < 2; i++) {
                     var obj = imgArray[i];
+                    console.log("iteration: " + i);
+                    console.log(imgArray[i]);
                     insertHTML = "<div class='col-md-4'><h2>" + obj.title + "</h2><div id=" + obj.id + "><img class='kittenPic' width='300px' src=" + obj.url + "/><p id='imageText-" + obj.id + "'></p></div></div>";
-                    $(insertHTML).apendTo("#kittenRow");
+                    $(insertHTML).appendTo(".kittenRow").on("click",clickWatch(this));
 
                 } 
                     //).appendTo('.kittenRow').on("click",clickWatch(this));
