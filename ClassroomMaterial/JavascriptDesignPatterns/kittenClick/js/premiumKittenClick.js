@@ -9,7 +9,7 @@ function clickWatch(myDiv) {
 
         clicks++;
         imageText = "I have been clicked " + clicks + " times!";
-        $(myDiv).find("#imageText").text(imageText);
+        $(".kittenPic").find("#imageText").text(imageText);
         //the element has been clicked... do stuff here
     //}
     //);
