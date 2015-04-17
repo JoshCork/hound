@@ -1,5 +1,5 @@
 var imgArray = [];
-var redditURL = "http://www.reddit.com/r/dogpictures/.json?jsonp=?&show=all&limit=300";
+var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=300";
 
 function clickWatch(id,index) {
     $("#"+id).click(function(e) {
@@ -19,7 +19,12 @@ function clickWatch(id,index) {
 
 
 
-// modified based on reading through this stackoverflow article: http://bit.ly/1PzGc0b
+//
+/**
+ * This function checks to see if the url pulled from reddit is a direct url to an image (vs. to a site like imgurl.com)
+ * This code was modified based on reading through this stackoverflow article: http://bit.ly/1PzGc0b
+ * @param {str} url [description]
+ */
 function IsValidImageUrl(url) {
 
     var arr = ["jpeg", "jpg", "gif", "png"];
@@ -95,7 +100,7 @@ function getRedditPictures() {
                 var insertHTML;
                 var nbrImages = 3;
 
-                for (var i = 0; i < 2; i++) {
+                for (var i = 0; i < nbrImages; i++) {
                     var obj = imgArray[i];
                     insertHTML = "<div class='col-md-4'><h2>" + obj.title + "</h2><div id=" + obj.id + "><img class='kittenPic' width='300px' src=" + obj.url + "/><p id='imageText'></p></div></div>";
                     $(insertHTML).appendTo(".kittenRow").on("click",clickWatch(obj.id,i));
@@ -120,3 +125,5 @@ function getRedditPictures() {
 
 
 getRedditPictures();
+
+
