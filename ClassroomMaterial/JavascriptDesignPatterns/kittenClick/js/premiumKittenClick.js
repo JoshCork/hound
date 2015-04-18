@@ -1,19 +1,25 @@
 var imgArray = [];
 var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=300";
 
-function clickWatch(myDiv) {
-    //$(myDiv).click(function(e) {
-        console.log(myDiv);
-        var clicks = 0;
-        var imageText;
+function clickWatch(id,index) {
+    $("#"+ id + "-thumb").click(function(e) {
+        console.log(id);
+        console.log("this is: ");
+        console.log(this);
 
-        clicks++;
-        imageText = "I have been clicked " + clicks + " times!";
-        $(".kittenPic").find("#imageText").text(imageText);
+        var imageText;
+        var replacementHTML = "<div id='kittenPic'><img id='kittenPic' width='600px' src=" + imgArray[index].url + "></div>";
+
+        imgArray[index].clicks++;
+        imageText = "I have been clicked " + imgArray[index].clicks + " times!";
+        $("#imageText").text(imageText);
+        $("#titleText").text(imgArray[index].title);
+        $("#kittenPic").replaceWith(replacementHTML);
+        console.log("replacement HTML: " + replacementHTML);
         //the element has been clicked... do stuff here
-    //}
-    //);
+    });
 }
+
 
 
 
@@ -80,6 +86,7 @@ function getRedditPictures() {
                             "title": title,
                             "permalink": permalink,
                             "id": id,
+                            "clicks" : 0,
                             "thumbnail" : thumbnail,
                         });
                     } else {
@@ -97,12 +104,10 @@ function getRedditPictures() {
 
                 for (var i = 0; i < nbrImages; i++) {
                     var obj = imgArray[i];
-                    console.log("iteration: " + i);
-                    console.log(imgArray[i]);
                     insertHTML = "<div class='col-sm-6' id=" + obj.id + "-thumb" + "><img class='kittenThumb' width='80px' src=" + obj.thumbnail + "></div>";
-                    $(insertHTML).appendTo(".list-group").on("click",clickWatch(this));
+                    $(insertHTML).appendTo(".list-group").on("click",clickWatch(obj.id,i));
 
-                } 
+                }
                     //).appendTo('.kittenRow').on("click",clickWatch(this));
 
                 //$("#kittenRow").apendTo();
