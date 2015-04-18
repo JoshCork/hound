@@ -15,7 +15,6 @@ function clickWatch(id,index) {
         $("#imageText").text(imageText);
         $("#titleText").text(imgArray[index].title);
         $("#kittenPic").replaceWith(replacementHTML);
-        console.log("replacement HTML: " + replacementHTML);
         //the element has been clicked... do stuff here
     });
 }

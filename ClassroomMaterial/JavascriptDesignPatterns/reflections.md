@@ -1,6 +1,8 @@
 # JavaScript Design Patterns
 
-
+## 4/17/2015
+Working: Cat Clicker Premium
+That was much musch easier because of the work I put in for the first version.  I modifed my loop that works through the valid reddit images that are returned and had that append those rows to a right side navigation.  I place the thumbnails in the right side nav and when they click on that I modified clickwatch to updated the jumbotron with a title,image, and click count. 
 
 ## 4/16/2015
 
