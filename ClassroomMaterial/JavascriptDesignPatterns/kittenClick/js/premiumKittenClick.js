@@ -8,7 +8,7 @@ function clickWatch(id,index) {
         console.log(this);
 
         var imageText;
-        var replacementHTML = "<div id='kittenPic'><img id='kittenPic' width='600px' src='http://i.imgur.com/2BhDs0s.jpg/''></div>"
+        var replacementHTML = "<div id='kittenPic'><img id='kittenPic' width='600px' src=" + imgArray[index].url + "></div>";
 
         imgArray[index].clicks++;
         imageText = "I have been clicked " + imgArray[index].clicks + " times!";
@@ -107,7 +107,7 @@ function getRedditPictures() {
                     insertHTML = "<div class='col-sm-6' id=" + obj.id + "-thumb" + "><img class='kittenThumb' width='80px' src=" + obj.thumbnail + "></div>";
                     $(insertHTML).appendTo(".list-group").on("click",clickWatch(obj.id,i));
 
-                } 
+                }
                     //).appendTo('.kittenRow').on("click",clickWatch(this));
 
                 //$("#kittenRow").apendTo();
