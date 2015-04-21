@@ -19,8 +19,18 @@ $(function() {
             octopus.shuffle(data);
             localStorage.kittens = JSON.stringify(data);
         },
+        getKittenURLs: function(){
+            var data = this.getAllKittens();
+            var URLs = [];
+            for (var i = 0; i < data.length; i++) {
+                var obj = data[i];
+                URLs.push(data[i].url);
+            };
+            return URLs;
+        },
         getKittensPics: function() {
-            var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=300";
+            var limit = 40;
+            var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=" + limit;
 
             $.ajax({
                 // async: false,
@@ -37,7 +47,7 @@ $(function() {
                         var permalink = "http://reddit.com/" + item.data.permalink;
                         var thumbnail = item.data.thumbnail;
 
-                        if (octopus.IsValidImageUrl(url)) {
+                        if (octopus.IsValidImageUrl(url) && octopus.isNewItem(url)) {                            
                             model.add({
                                 "url": url,
                                 "title": title,
@@ -63,8 +73,9 @@ $(function() {
         },
         init: function() {
             if (!localStorage.kittens) {
-                localStorage.kittens = JSON.stringify([]);
+                localStorage.kittens = JSON.stringify([]);                
             }
+            
             this.getKittensPics();
         },
     };
@@ -96,6 +107,17 @@ $(function() {
             }
 
             return array;
+        },
+        isNewItem: function(url){
+            var isNew;
+            kittenUrls = model.getKittenURLs();
+            if ($.inArray(url,kittenUrls) > -1){
+                isNew = false;
+            }
+            else {
+                isNew = true;
+            }
+            return isNew;
         },
         // modified based on reading through this stackoverflow article: http://bit.ly/1PzGc0b
         IsValidImageUrl: function(url) {
