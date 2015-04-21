@@ -1,11 +1,5 @@
 $(function() {
     var model = {
-        init: function() {
-            if (!localStorage.kittens) {
-                localStorage.kittens = JSON.stringify([]);
-            }
-            // model.getKittens();
-        },
         add: function(obj) {
             var data = JSON.parse(localStorage.kittens);
             data.push(obj);
@@ -20,11 +14,59 @@ $(function() {
             var data = JSON.parse(localStorage.kittens);
             return data;
         },
-        shuffleKittens: function(){
+        shuffleKittens: function() {
             var data = this.getAllKittens();
             octopus.shuffle(data);
             localStorage.kittens = JSON.stringify(data);
-        }
+        },
+        getKittensPics: function() {
+            var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=300";
+
+            $.ajax({
+                // async: false,
+                url: redditURL,
+                dataType: "json",
+                success: function(jsonData) {
+                    redditData = jsonData;
+                    var arr = ["jpeg", "jpg", "gif", "png"];
+
+                    $.each(jsonData.data.children, function(i, item) {
+                        var url = item.data.url;
+                        var title = item.data.title;
+                        var id = item.data.id;
+                        var permalink = "http://reddit.com/" + item.data.permalink;
+                        var thumbnail = item.data.thumbnail;
+
+                        if (octopus.IsValidImageUrl(url)) {
+                            model.add({
+                                "url": url,
+                                "title": title,
+                                "permalink": permalink,
+                                "id": id,
+                                "clicks": 0,
+                                "thumbnail": thumbnail,
+                            });
+                        } else {
+                            // do nothing.
+                        }
+
+                    });
+
+                },
+                error: function(e) {
+                    console.log("oh snap! error: " + e);
+                },
+
+
+            });
+
+        },
+        init: function() {
+            if (!localStorage.kittens) {
+                localStorage.kittens = JSON.stringify([]);
+            }
+            this.getKittensPics();
+        },
     };
 
     var octopus = {
@@ -71,55 +113,9 @@ $(function() {
             return isValid;
 
         },
-        getKittens: function() {
-            var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=300";
 
-            function getRedditPictures() {
-
-                $.ajax({
-                    // async: false,
-                    url: redditURL,
-                    dataType: "json",
-                    success: function(jsonData) {
-                        redditData = jsonData;
-                        var arr = ["jpeg", "jpg", "gif", "png"];
-
-                        $.each(jsonData.data.children, function(i, item) {
-                            var url = item.data.url;
-                            var title = item.data.title;
-                            var id = item.data.id;
-                            var permalink = "http://reddit.com/" + item.data.permalink;
-                            var thumbnail = item.data.thumbnail;
-
-                            if (octopus.IsValidImageUrl(url)) {
-                                model.add({
-                                    "url": url,
-                                    "title": title,
-                                    "permalink": permalink,
-                                    "id": id,
-                                    "clicks": 0,
-                                    "thumbnail": thumbnail,
-                                });
-                            } else {
-                                // do nothing.
-                            }
-
-                        });
-
-                    },
-                    error: function(e) {
-                        console.log("oh snap! error: " + e);
-                    },
-
-
-                });
-            }
-            getRedditPictures();
-
-        },
         init: function() {
             model.init();
-            octopus.getKittens();
             model.shuffleKittens();
             navView.init();
             jumboView.init();
