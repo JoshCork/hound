@@ -1,8 +1,16 @@
 # JavaScript Design Patterns
 
+## 4/21/2015
+Finished moving kittenClick over to MVO.  I had some trouble deciding where to put my functions.  For instance the function that gets the Reddit data - is that part of the model (only for storing data and returning it when called), or part of the Octopus - responsible for calling out to the API.  In the end I put it in the model function and pull it on Init.  
+
+I wanted to add the data to local storage and because of that I had to make some modifications to that to make it work well.  I had to add a function that checks to see if every item stored in the data object was a new item or an item I had already pulled from reddit.  If it is something that I already have I disregard it.  
+
+I'm not sure on the efficiency of what i'm doing as it seems like i'm reading and writing the local storage constantly. 
+
+Aside from makeing those modifications this exercise wasn't terribly difficult. 
+
 ## 4/20/2015
 Working but have some bugs see notes on most recent commit. 
-
 
 ## 4/17/2015
 Working: Cat Clicker Premium

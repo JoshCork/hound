@@ -29,7 +29,7 @@ $(function() {
             return URLs;
         },
         getKittensPics: function() {
-            var limit = 40;
+            var limit = 100;
             var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=" + limit;
 
             $.ajax({
