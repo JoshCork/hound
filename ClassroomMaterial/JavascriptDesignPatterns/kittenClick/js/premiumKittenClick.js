@@ -2,16 +2,19 @@ var imgArray = [];
 var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=300";
 
 function clickWatch(id,index) {
-    $("#"+id).click(function(e) {
+    $("#"+ id + "-thumb").click(function(e) {
         console.log(id);
         console.log("this is: ");
         console.log(this);
 
         var imageText;
+        var replacementHTML = "<div id='kittenPic'><img id='kittenPic' width='600px' src=" + imgArray[index].url + "></div>";
 
         imgArray[index].clicks++;
         imageText = "I have been clicked " + imgArray[index].clicks + " times!";
-        $(this).find("#imageText").text(imageText);
+        $("#imageText").text(imageText);
+        $("#titleText").text(imgArray[index].title);
+        $("#kittenPic").replaceWith(replacementHTML);
         //the element has been clicked... do stuff here
     });
 }
@@ -19,12 +22,8 @@ function clickWatch(id,index) {
 
 
 
-//
-/**
- * This function checks to see if the url pulled from reddit is a direct url to an image (vs. to a site like imgurl.com)
- * This code was modified based on reading through this stackoverflow article: http://bit.ly/1PzGc0b
- * @param {str} url [description]
- */
+
+// modified based on reading through this stackoverflow article: http://bit.ly/1PzGc0b
 function IsValidImageUrl(url) {
 
     var arr = ["jpeg", "jpg", "gif", "png"];
@@ -78,6 +77,7 @@ function getRedditPictures() {
                     var title = item.data.title;
                     var id = item.data.id;
                     var permalink = "http://reddit.com/" + item.data.permalink;
+                    var thumbnail = item.data.thumbnail;
 
                     if (IsValidImageUrl(url)) {
                         imgArray.push({
@@ -86,6 +86,7 @@ function getRedditPictures() {
                             "permalink": permalink,
                             "id": id,
                             "clicks" : 0,
+                            "thumbnail" : thumbnail,
                         });
                     } else {
                         // do nothing.
@@ -97,13 +98,13 @@ function getRedditPictures() {
                 // $('<img/>').attr('src', imgArray[0]).width(500).appendTo('#images');
                 // $('<img/>').attr('src', imgArray[1]).width(500).appendTo('#images');
 
-                var insertHTML;
-                var nbrImages = 3;
+                var insertHTML
+                var nbrImages = 10
 
                 for (var i = 0; i < nbrImages; i++) {
                     var obj = imgArray[i];
-                    insertHTML = "<div class='col-md-4'><h2>" + obj.title + "</h2><div id=" + obj.id + "><img class='kittenPic' width='300px' src=" + obj.url + "/><p id='imageText'></p></div></div>";
-                    $(insertHTML).appendTo(".kittenRow").on("click",clickWatch(obj.id,i));
+                    insertHTML = "<div class='col-sm-6' id=" + obj.id + "-thumb" + "><img class='kittenThumb' width='80px' src=" + obj.thumbnail + "></div>";
+                    $(insertHTML).appendTo(".list-group").on("click",clickWatch(obj.id,i));
 
                 }
                     //).appendTo('.kittenRow').on("click",clickWatch(this));
@@ -125,5 +126,3 @@ function getRedditPictures() {
 
 
 getRedditPictures();
-
-
