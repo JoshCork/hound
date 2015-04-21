@@ -6,29 +6,33 @@ $(function() {
             }
             // model.getKittens();
         },
-        add: function(obj){
-        	var data = JSON.parse(localStorage.kittens);        	
-        	data.push(obj);
-        	localStorage.kittens = JSON.stringify(data);        	
+        add: function(obj) {
+            var data = JSON.parse(localStorage.kittens);
+            data.push(obj);
+            localStorage.kittens = JSON.stringify(data);
         },
+        incrementKitten: function(index) {
+            var data = JSON.parse(localStorage.kittens);
+            data[index].clicks++;
+            localStorage.kittens = JSON.stringify(data);
+        },
+        getAllKittens: function() {
+            var data = JSON.parse(localStorage.kittens);
+            return data;
+        },
+        shuffleKittens: function(){
+            var data = this.getAllKittens();
+            octopus.shuffle(data);
+            localStorage.kittens = JSON.stringify(data);
+        }
     };
 
     var octopus = {
         clickWatch: function(id, index) {
             $("#" + id + "-thumb").click(function(e) {
-                console.log(id);
-                console.log("this is: ");
-                console.log(this);
+                model.incrementKitten(index);
+                jumboView.render(index);
 
-                var imageText;
-                var replacementHTML = "<div id='kittenPic'><img id='kittenPic' width='600px' src=" + imgArray[index].url + "></div>";
-
-                imgArray[index].clicks++;
-                imageText = "I have been clicked " + imgArray[index].clicks + " times!";
-                $("#imageText").text(imageText);
-                $("#titleText").text(imgArray[index].title);
-                $("#kittenPic").replaceWith(replacementHTML);
-                //the element has been clicked... do stuff here
             });
         },
         // pulled from: http://bit.ly/1CFUQZF
@@ -71,7 +75,7 @@ $(function() {
             var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=300";
 
             function getRedditPictures() {
-            	
+
                 $.ajax({
                     // async: false,
                     url: redditURL,
@@ -116,7 +120,7 @@ $(function() {
         init: function() {
             model.init();
             octopus.getKittens();
-            localStorage.kittens = octopus.shuffle(localStorage.kittens);
+            model.shuffleKittens();
             navView.init();
             jumboView.init();
         },
@@ -129,8 +133,16 @@ $(function() {
             var kittenPic = $("#kittenPic");
             jumboView.render();
         },
-        render: function() {
+        render: function(index) {
+            var imgArray = model.getAllKittens();
+            var imageText;
+            var replacementHTML = "<div id='kittenPic'><img id='kittenPic' width='600px' src=" + imgArray[index].url + "></div>";
 
+            imageText = "I have been clicked " + imgArray[index].clicks + " times!";
+            $("#imageText").text(imageText);
+            $("#titleText").text(imgArray[index].title);
+            $("#kittenPic").replaceWith(replacementHTML);
+            //the element has been clicked... do stuff here
         },
     };
 
@@ -140,17 +152,19 @@ $(function() {
             navView.render();
         },
         render: function() {
-            var insertHTML
-            var nbrImages = 10
+            var insertHTML;
+            var nbrImages = 10;
+            var imgArray = JSON.parse(localStorage.kittens);
 
             for (var i = 0; i < nbrImages; i++) {
-                var obj = localStorage.kittens[i];
+                var obj = imgArray[i];
                 insertHTML = "<div class='col-sm-6' id=" + obj.id + "-thumb" + "><img class='kittenThumb' width='80px' src=" + obj.thumbnail + "></div>";
                 $(insertHTML).appendTo(this.listGroup).on("click", octopus.clickWatch(obj.id, i));
 
             }
         },
-    }
+    };
 
     octopus.init();
-})
+
+});
