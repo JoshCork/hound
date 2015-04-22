@@ -12,6 +12,11 @@ Aside from makeing those modifications this exercise wasn't terribly difficult.
 ## 4/20/2015
 Working but have some bugs see notes on most recent commit. 
 
+Instructors notes:
+Resources
+
+Check out the earlier reading node on [how to deal with event listeners and closures](https://www.udacity.com/course/viewer#!/c-ud989/l-3417188540/m-3480348671). You likely will need it to get the click events for your cat list to work.
+
 ## 4/17/2015
 Working: Cat Clicker Premium
 That was much musch easier because of the work I put in for the first version.  I modifed my loop that works through the valid reddit images that are returned and had that append those rows to a right side navigation.  I place the thumbnails in the right side nav and when they click on that I modified clickwatch to updated the jumbotron with a title,image, and click count. 
