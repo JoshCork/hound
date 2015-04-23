@@ -7,6 +7,8 @@ I wanted to add the data to local storage and because of that I had to make some
 
 I'm not sure on the efficiency of what i'm doing as it seems like i'm reading and writing the local storage constantly. 
 
+Also, i have my view calling localStorage directly and i'm not sure if that is the right thing to do or not?  Am i breaking the paradigm that way?
+
 Aside from makeing those modifications this exercise wasn't terribly difficult. 
 
 ## 4/20/2015
