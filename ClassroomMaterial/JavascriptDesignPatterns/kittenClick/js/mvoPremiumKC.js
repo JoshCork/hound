@@ -1,5 +1,5 @@
 $(function() {
-    var model = {
+    var modifiedel = {
         add: function(obj) {
             var data = JSON.parse(localStorage.kittens);
             data.push(obj);
