@@ -1,5 +1,5 @@
 $(function() {
-    var modifiedel = {
+    var model = {
         add: function(obj) {
             var data = JSON.parse(localStorage.kittens);
             data.push(obj);
@@ -10,24 +10,13 @@ $(function() {
             data[index].clicks++;
             localStorage.kittens = JSON.stringify(data);
         },
-        getAllKittens: function() {
-            var data = JSON.parse(localStorage.kittens);
-            return data;
-        },
+
         shuffleKittens: function() {
-            var data = this.getAllKittens();
+            var data = octopus.getAllKittens();
             octopus.shuffle(data);
             localStorage.kittens = JSON.stringify(data);
         },
-        getKittenURLs: function(){
-            var data = this.getAllKittens();
-            var URLs = [];
-            for (var i = 0; i < data.length; i++) {
-                var obj = data[i];
-                URLs.push(data[i].url);
-            };
-            return URLs;
-        },
+
         getKittensPics: function() {
             var limit = 100;
             var redditURL = "http://www.reddit.com/r/catpictures/.json?jsonp=?&show=all&limit=" + limit;
@@ -47,7 +36,7 @@ $(function() {
                         var permalink = "http://reddit.com/" + item.data.permalink;
                         var thumbnail = item.data.thumbnail;
 
-                        if (octopus.IsValidImageUrl(url) && octopus.isNewItem(url)) {                            
+                        if (octopus.IsValidImageUrl(url) && octopus.isNewItem(url)) {
                             model.add({
                                 "url": url,
                                 "title": title,
@@ -73,14 +62,28 @@ $(function() {
         },
         init: function() {
             if (!localStorage.kittens) {
-                localStorage.kittens = JSON.stringify([]);                
+                localStorage.kittens = JSON.stringify([]);
             }
-            
+
             this.getKittensPics();
         },
     };
 
     var octopus = {
+        getKittenURLs: function() {
+            var data = this.getAllKittens();
+            var URLs = [];
+            for (var i = 0; i < data.length; i++) {
+                var obj = data[i];
+                URLs.push(data[i].url);
+            };
+            return URLs;
+        },
+
+        getAllKittens: function() {
+            var data = JSON.parse(localStorage.kittens);
+            return data;
+        },
         clickWatch: function(id, index) {
             $("#" + id + "-thumb").click(function(e) {
                 model.incrementKitten(index);
@@ -108,13 +111,12 @@ $(function() {
 
             return array;
         },
-        isNewItem: function(url){
+        isNewItem: function(url) {
             var isNew;
-            kittenUrls = model.getKittenURLs();
-            if ($.inArray(url,kittenUrls) > -1){
+            kittenUrls = this.getKittenURLs();
+            if ($.inArray(url, kittenUrls) > -1) {
                 isNew = false;
-            }
-            else {
+            } else {
                 isNew = true;
             }
             return isNew;
@@ -152,7 +154,7 @@ $(function() {
             jumboView.render();
         },
         render: function(index) {
-            var imgArray = model.getAllKittens();
+            var imgArray = octopus.getAllKittens();
             var imageText;
             var replacementHTML = "<div id='kittenPic'><img id='kittenPic' width='600px' src=" + imgArray[index].url + "></div>";
 
