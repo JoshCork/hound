@@ -76,7 +76,7 @@ $(function() {
             for (var i = 0; i < data.length; i++) {
                 var obj = data[i];
                 URLs.push(data[i].url);
-            };
+            }
             return URLs;
         },
 
