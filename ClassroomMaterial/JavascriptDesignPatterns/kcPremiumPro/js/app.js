@@ -10,6 +10,11 @@ $(function() {
             data[index].clicks++;
             localStorage.kittens = JSON.stringify(data);
         },
+        updateKitten: function(index) {
+            var data = JSON.parse(localStorage.kittens);
+            data[index].clicks++;
+            localStorage.kittens = JSON.stringify(data);
+        },
 
         shuffleKittens: function() {
             var data = octopus.getAllKittens();
@@ -143,6 +148,7 @@ $(function() {
             model.shuffleKittens();
             navView.init();
             jumboView.init();
+            topNavView.init();
         },
     };
 
@@ -151,7 +157,11 @@ $(function() {
             var clickText = $("#imageText");
             var titleText = $("#titleText");
             var kittenPic = $("#kittenPic");
-            jumboView.render();
+            this.admin = $("#adminSection");
+            var cancelButton = $("#cancelBtn");
+            // jumboView.render();
+
+            cancelButton.click(function(){ console.log("click registered.");jumboView.admin.addClass("hide");});
         },
         render: function(index) {
             var imgArray = octopus.getAllKittens();
@@ -183,6 +193,18 @@ $(function() {
 
             }
         },
+    };
+
+    var topNavView = {
+        init: function() {
+            this.adminButton = $("#adminButton");
+            topNavView.render();
+            console.log("inside topNavView init");
+        },
+        render: function() {
+            console.log("inside render function");
+            this.adminButton.click( function() { console.log("click registered"); jumboView.admin.removeClass("hide");});
+        }
     };
 
     octopus.init();
