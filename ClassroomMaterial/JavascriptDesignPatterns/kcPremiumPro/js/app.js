@@ -10,8 +10,6 @@ $(function() {
             data[index].clicks++;
             localStorage.kittens = JSON.stringify(data);
         },
-        
-
         shuffleKittens: function() {
             var data = octopus.getAllKittens();
             octopus.shuffle(data);
@@ -78,6 +76,7 @@ $(function() {
             data[kittenIndex].clicks = $("#clickCountUpdate").val();
 
             localStorage.kittens = JSON.stringify(data);
+            jumboView.hidAdmin();
             jumboView.render(kittenIndex);
         },
         getKittenURLs: function() {
@@ -171,13 +170,13 @@ $(function() {
             var cancelButton = $("#cancelBtn");
             // jumboView.render();
 
-            cancelButton.click(function(){ console.log("click registered.");jumboView.admin.addClass("hide");});
+            cancelButton.click(function(){ jumboView.admin.addClass("hide"); });
         },
         render: function(index) {
             this.updateBtn = $("#updateBtn");
             var imgArray = octopus.getAllKittens();
             var imageText;
-            var clickCount = octopus.getKittenClicks(index)
+            var clickCount = imgArray[index].clicks;
             var replacementHTML = "<div id='kittenPic'><img id='kittenPic' width='600px' src=" + imgArray[index].url + "></div>";
 
             imageText = "I have been clicked " + imgArray[index].clicks + " times!";
@@ -189,7 +188,10 @@ $(function() {
 
             this.updateBtn.click( function() { octopus.updateKitten(index) });
             //the element has been clicked... do stuff here
-        },
+        },        
+        hidAdmin: function() {
+            this.admin.addClass("hide");
+        }
     };
 
     var navView = {
@@ -209,6 +211,7 @@ $(function() {
 
             }
         },
+
     };
 
     var topNavView = {

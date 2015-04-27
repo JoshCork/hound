@@ -1,5 +1,12 @@
 # JavaScript Design Patterns
 
+## 4/27/2015
+Not to bad at all.  I think i had the basic framework in place.  Most of my time and energy comes from trying to apply what I've learned to the REDDIT API version of this app that I've created where the data isn't something I've created and can change all the time.  It's pretty awesome though!  
+
+Other stuff I wasn't sure about:
+Again - i'm not sure that what I'm putting in the model is appropriate?
+I feel like I could do some refactoring and save some processing that is currently unncessary.  For instance in the jumboView controller I was calling the getAllKittens function and then using that data stored into an array.  I caught myself doing the same thing to call a getKittenClicks function when I already had the whole object stored in an array. 
+
 ## 4/21/2015
 Finished moving kittenClick over to MVO.  I had some trouble deciding where to put my functions.  For instance the function that gets the Reddit data - is that part of the model (only for storing data and returning it when called), or part of the Octopus - responsible for calling out to the API.  In the end I put it in the model function and pull it on Init.  
 
