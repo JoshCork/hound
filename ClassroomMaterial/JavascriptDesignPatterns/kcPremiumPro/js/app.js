@@ -10,11 +10,7 @@ $(function() {
             data[index].clicks++;
             localStorage.kittens = JSON.stringify(data);
         },
-        updateKitten: function(index) {
-            var data = JSON.parse(localStorage.kittens);
-            data[index].clicks++;
-            localStorage.kittens = JSON.stringify(data);
-        },
+        
 
         shuffleKittens: function() {
             var data = octopus.getAllKittens();
@@ -75,6 +71,15 @@ $(function() {
     };
 
     var octopus = {
+        updateKitten: function(kittenIndex) {
+            var data = JSON.parse(localStorage.kittens);            
+
+            data[kittenIndex].title = $("#titleTextUpdate").val();            
+            data[kittenIndex].clicks = $("#clickCountUpdate").val();
+
+            localStorage.kittens = JSON.stringify(data);
+            jumboView.render(kittenIndex);
+        },
         getKittenURLs: function() {
             var data = this.getAllKittens();
             var URLs = [];
@@ -83,6 +88,11 @@ $(function() {
                 URLs.push(data[i].url);
             }
             return URLs;
+        },
+        getKittenClicks: function(index) {
+            var data = this.getAllKittens();
+            var clickCount = data[index].clicks;
+            return clickCount;
         },
 
         getAllKittens: function() {
@@ -164,14 +174,20 @@ $(function() {
             cancelButton.click(function(){ console.log("click registered.");jumboView.admin.addClass("hide");});
         },
         render: function(index) {
+            this.updateBtn = $("#updateBtn");
             var imgArray = octopus.getAllKittens();
             var imageText;
+            var clickCount = octopus.getKittenClicks(index)
             var replacementHTML = "<div id='kittenPic'><img id='kittenPic' width='600px' src=" + imgArray[index].url + "></div>";
 
             imageText = "I have been clicked " + imgArray[index].clicks + " times!";
             $("#imageText").text(imageText);
             $("#titleText").text(imgArray[index].title);
             $("#kittenPic").replaceWith(replacementHTML);
+            $("#titleTextUpdate").val(imgArray[index].title);
+            $("#clickCountUpdate").val(clickCount);
+
+            this.updateBtn.click( function() { octopus.updateKitten(index) });
             //the element has been clicked... do stuff here
         },
     };
