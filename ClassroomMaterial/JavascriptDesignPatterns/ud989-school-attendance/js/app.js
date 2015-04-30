@@ -34,6 +34,7 @@ $(function() {
         $allCheckboxes = $('tbody input');
 
     // Count a student's missed days
+    // Value is stored on the page itself.... not in local storage? 
     function countMissing() {
         $allMissed.each(function() {
             var studentRow = $(this).parent('tr'),
@@ -61,6 +62,7 @@ $(function() {
     });
 
     // When a checkbox is clicked, update localStorage
+    // seems like every click it is updating all the data regardless of if that checkbox was clicked or not?
     $allCheckboxes.on('click', function() {
         var studentRows = $('tbody .student'),
             newAttendance = {};
