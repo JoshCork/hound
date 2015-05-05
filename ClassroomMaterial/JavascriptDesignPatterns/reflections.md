@@ -1,5 +1,8 @@
 # JavaScript Design Patterns
 
+## 5/4/2015 - May the 4th be with you
+Moved on to refactoring my resume project.  Strange  -  The resume project itself was not in the lcoation I expected.  It's under udacity but not named by it's own repo github name.  Instead it's just named frontend-nanodegree-resume.  I created a branch called mvcRefactor and I'm working off of that.  I'll update my key leanrings here. 
+
 ## 4/27/2015
 Not to bad at all.  I think i had the basic framework in place.  Most of my time and energy comes from trying to apply what I've learned to the REDDIT API version of this app that I've created where the data isn't something I've created and can change all the time.  It's pretty awesome though!  
 
