@@ -2,7 +2,7 @@ var initialCats = [
 	{
 		name : "Tabby",
 		clickCount : 0,
-		imgSrc : "img/434164568_fea0ad4013_z.jpg",
+		imgSrc : "img/biPointer.jpg",
 		imgAttribution : "https://flickr.com/photos/big",
 		nicknames : ["Bungle",
         "George",
@@ -13,21 +13,21 @@ var initialCats = [
 	{
 		name : "Tiger",
 		clickCount : 0,
-		imgSrc : "img/1413379559_412a540d29_z.jpg",
+		imgSrc : "img/business-charts-collection-in-flat-design-powerpoint.jpg",
 		imgAttribution : "NEED TO ADD imgAttribution",
 		nicknames : ["Longbrake"],
 	},
 	{
 		name : "Scaredy",
 		clickCount : 0,
-		imgSrc : "img/22252709_010df3379e_z.jpg",
+		imgSrc : "img/wordCloud.jpg",
 		imgAttribution : "NEED TO ADD imgAttribution",
 		nicknames : ["Johanson"],
 	},
 	{
 		name : "Shadow",
 		clickCount : 0,
-		imgSrc : "img/9648464288_2516b35537_z.jpg",
+		imgSrc : "img/yellowfin-BI-dashboard-laptop.png",
 		imgAttribution : "NEED TO ADD imgAttribution",
 		nicknames : ["Kris"],
 	},
@@ -54,7 +54,7 @@ var Cat = function(data) {
 
 }
 
-// [] Make the cats show up in a list
+// [X] Make the cats show up in a list
 // [] Make the current cat change when you click on a cat in the list
 
 var ViewModel = function() {
@@ -64,11 +64,14 @@ var ViewModel = function() {
 
     initialCats.forEach(function(catItem){
     	self.catList.push(new Cat(catItem));
-    	console.log(catItem);
     });
 
     self.currentCat = ko.observable( this.catList()[0] );
-    console.log(this.catList()[0]);
+
+    self.kittenSelect = function() {
+    	console.log("kittenSelect Clicked");
+    	self.currentCat = ko.observable( self.catList()[1] );
+    };
 
     self.incrementCounter = function() {
         self.currentCat().clickCount(self.currentCat().clickCount() + 1);
