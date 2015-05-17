@@ -60,12 +60,26 @@ var app = app || {};
 
 		toggleVisible: function () {
 			this.$el.toggleClass('hidden', this.isHidden());
+			// this.$el.toggleClass('hidden', this.isPriorityHidden());
 		},
 
 		isHidden: function () {
-			return this.model.get('completed') ?
-				app.TodoFilter === 'active' :
-				app.TodoFilter === 'completed';
+
+				switch (app.TodoFilter) {
+					case 'active':
+						return this.model.get('completed') ?  true : false ;
+
+					case 'completed':
+						return this.model.get('completed') ? false : true ;
+
+					case 'priority':
+						return this.model.get('priority') ? false : true ;
+
+					default:
+						return false;
+
+				}
+
 		},
 
 		// Toggle the `"completed"` state of the model.
