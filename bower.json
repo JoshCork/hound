@@ -1,0 +1,24 @@
+{
+  "name": "NeighborhoodMap",
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "knockout": "~3.3.0"
+  },
+  "version": "0.0.0",
+  "homepage": "https://github.com/JoshCork/hound",
+  "authors": [
+    "Joshua Cork <joshua.cork@gmail.com>"
+  ],
+  "description": "I'm developing a single page application featuring a map of my neighborhood or a neighborhood that I would like to visit. I'm going to add additional functionality to this map including highlighted locations, third-party data about those locations and various ways to browse the content.",
+  "keywords": [
+    "udacity"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
